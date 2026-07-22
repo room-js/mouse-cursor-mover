@@ -45,12 +45,7 @@ mod imp {
 
     pub fn move_cursor(x: f64, y: f64) {
         unsafe {
-            let event = CGEventCreateMouseEvent(
-                std::ptr::null(),
-                5,
-                CGPoint { x, y },
-                0,
-            );
+            let event = CGEventCreateMouseEvent(std::ptr::null(), 5, CGPoint { x, y }, 0);
             if !event.is_null() {
                 CGEventPost(0, event);
                 CFRelease(event);

@@ -187,10 +187,7 @@ impl ApplicationHandler for App {
                 .support_item
                 .as_ref()
                 .is_some_and(|i| i.id() == &event.id);
-            let is_quit = self
-                .quit_item
-                .as_ref()
-                .is_some_and(|i| i.id() == &event.id);
+            let is_quit = self.quit_item.as_ref().is_some_and(|i| i.id() == &event.id);
 
             if is_toggle {
                 self.toggle_running_debounced();
