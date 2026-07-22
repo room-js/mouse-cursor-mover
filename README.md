@@ -5,10 +5,11 @@ A lightweight **macOS (Apple Silicon)** menu-bar utility that keeps your Mac awa
 ## Features
 
 - Lives entirely in the macOS menu bar — no Dock icon
-- Two distinct tray icons:
-  - **● (green filled circle)** — running
-  - **○ (gray ring)** — stopped
-- Menu with three items: **Start**, **Stop**, **Quit**
+- Two tray-icon states loaded from assets:
+  - **Running icon**
+  - **Stopped icon**
+- Menu with two items: **Start/Stop** toggle and **Support project**
+- Global toggle shortcut: **Cmd+Option+S**
 - Cursor moves to a random screen position every 5 seconds while active
 - Zero external runtime dependencies; uses CoreGraphics directly for mouse control
 
@@ -49,9 +50,34 @@ After launch a small circle icon appears in the macOS menu bar.
 
 | Action | Effect |
 |--------|--------|
-| Click icon → **Start** | Begins moving the cursor every 5 s; icon turns green |
-| Click icon → **Stop**  | Pauses cursor movement; icon turns gray |
-| Click icon → **Quit**  | Exits the application |
+| Click icon → **Start** / **Stop** (`Cmd+Option+S`) | Toggles between running and stopped |
+| Click icon → **Support project** | Opens `https://buymeacoffee.com/roomjs` |
+
+## Custom tray icons
+
+You can provide your own icons for the two states by placing PNG files here:
+
+- `assets/icon-running.png`
+- `assets/icon-stopped.png`
+
+Optional Retina variants (preferred when present):
+
+- `assets/icon-running@2x.png`
+- `assets/icon-stopped@2x.png`
+
+Behavior:
+
+- Icon files are required.
+- If `@2x` and non-`@2x` both exist, `@2x` is used.
+- If a required icon file is missing or cannot be decoded, the app fails fast at startup with an error.
+
+Tips:
+
+- Use square PNGs.
+- For best Retina quality use 36x36 for `@2x` (logical menu-bar icon is ~18pt high).
+- Non-`@2x` can be 18x18.
+- Keep transparent background for menu-bar clarity.
+- Icons are rendered as macOS template images (system-tinted). Use a single-color glyph with transparency, and avoid baked black backgrounds.
 
 ## Notes
 

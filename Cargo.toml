@@ -13,3 +13,5 @@ path = "src/main.rs"
 [dependencies]
 tray-icon = "0.24"
 winit = "0.30"
+image = { version = "0.25", default-features = false, features = ["png"] }
+global-hotkey = "0.6"
