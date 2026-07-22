@@ -20,6 +20,7 @@ jobs:
           client-id: ${{ secrets.RELEASE_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
           owner: room-js
+          repositories: ${{ github.repository }}
 
       - name: Run release-please
         id: release
