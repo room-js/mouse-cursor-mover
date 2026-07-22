@@ -1,6 +1,6 @@
 [package]
 name = "mouse-cursor-mover"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2021"
 description = "macOS menu-bar utility that moves the mouse cursor every 5 seconds to prevent sleep"
 readme = "README.md"
