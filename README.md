@@ -5,7 +5,7 @@ A lightweight **macOS (Apple Silicon + Intel)** menu-bar utility that keeps your
 ## Features
 
 - Lives entirely in the macOS menu bar — no Dock icon
-- Two tray-icon states loaded from assets:
+- Two tray-icon states embedded at build time:
   - **Running icon**
   - **Stopped icon**
 - Menu with three items: **Start/Stop** toggle, **Support project**, and **Quit**
@@ -55,7 +55,7 @@ Available artifact types:
 
 - `*.dmg` (recommended): drag-and-drop installer image with `.app` + `Applications` shortcut
 - `*.app.zip`: zipped `.app` bundle
-- `*.tar.gz`: raw CLI binary archive
+- `*.tar.gz`: standalone CLI binary archive
 
 Download from the repository's **Releases** page and choose the asset matching your machine architecture.
 
@@ -64,6 +64,11 @@ Download from the repository's **Releases** page and choose the asset matching y
 1. Download the `*.dmg` for your architecture.
 2. Open it and drag `Mouse Cursor Mover.app` into `Applications`.
 3. Launch from `Applications` (or Spotlight).
+
+### Running from `*.tar.gz`
+
+1. Extract the archive.
+2. Run the binary directly.
 
 ## Usage
 
