@@ -36,9 +36,14 @@ chmod +x "dist/${BIN_NAME}"
 tar -czf "dist/${BIN_NAME}.tar.gz" -C dist "${BIN_NAME}"
 
 BUNDLE_ROOT="target/${TARGET}/release/bundle/osx"
+if [[ ! -d "${BUNDLE_ROOT}" ]]; then
+  echo "Missing bundle output directory: ${BUNDLE_ROOT}" >&2
+  exit 1
+fi
+
 APP_BUNDLE_SRC="${BUNDLE_ROOT}/${APP_NAME}.app"
 if [[ ! -d "${APP_BUNDLE_SRC}" ]]; then
-  APP_BUNDLE_SRC="$(find "${BUNDLE_ROOT}" -maxdepth 1 -name "*.app" -print -quit)"
+  APP_BUNDLE_SRC="$(find "${BUNDLE_ROOT}" -maxdepth 1 -name "*.app" -print -quit || true)"
 fi
 
 if [[ -z "${APP_BUNDLE_SRC}" || ! -d "${APP_BUNDLE_SRC}" ]]; then
