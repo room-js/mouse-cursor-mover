@@ -82,11 +82,7 @@ Only do this when you trust the release source.
 
 After launch, the tray icon appears in the macOS menu bar.
 
-| Action | Effect |
-|--------|--------|
-| Click icon → **Start** / **Stop** (`Cmd+Option+S`) | Toggles between running and stopped |
-| Click icon → **Support project** | Opens `https://buymeacoffee.com/roomjs` |
-| Click icon → **Quit** | Exits the app cleanly |
+Click icon **Start** / **Stop** (`Cmd+Option+S`) to toggle the mouse moving
 
 ## Notes
 
