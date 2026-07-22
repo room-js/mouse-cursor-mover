@@ -1,4 +1,4 @@
-name: Release Assets (Manual)
+name: Release Assets
 
 on:
   workflow_dispatch:
