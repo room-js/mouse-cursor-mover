@@ -1,0 +1,17 @@
+[package]
+name = "mouse-cursor-mover"
+version = "0.1.0"
+edition = "2021"
+description = "macOS menu-bar utility that moves the mouse cursor every 5 seconds to prevent sleep"
+readme = "README.md"
+license = "MIT"
+
+[[bin]]
+name = "mouse-cursor-mover"
+path = "src/main.rs"
+
+[dependencies]
+tray-icon = "0.24"
+winit = "0.30"
+image = { version = "0.25", default-features = false, features = ["png"] }
+global-hotkey = "0.6"
