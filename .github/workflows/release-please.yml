@@ -13,11 +13,19 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.RELEASE_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: room-js
+
       - name: Run release-please
         id: release
         uses: googleapis/release-please-action@v5
         with:
-          # Use a PAT/App token so created releases can trigger downstream workflows.
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          # Use GitHub App installation token so created releases can trigger downstream workflows.
+          token: ${{ steps.app-token.outputs.token }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
