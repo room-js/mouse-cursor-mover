@@ -17,6 +17,7 @@ jobs:
         id: release
         uses: googleapis/release-please-action@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use a PAT/App token so created releases can trigger downstream workflows.
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
