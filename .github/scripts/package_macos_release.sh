@@ -18,8 +18,9 @@ else
   TAG_SUFFIX="${TAG}"
 fi
 
-VERSION="${TAG_SUFFIX#v}"
 APP_NAME="Mouse Cursor Mover"
+
+cargo bundle --release --target "${TARGET}" --format osx --bin mouse-cursor-mover
 
 BIN_SRC="target/${TARGET}/release/mouse-cursor-mover"
 if [[ ! -f "${BIN_SRC}" ]]; then
@@ -34,55 +35,64 @@ cp "${BIN_SRC}" "dist/${BIN_NAME}"
 chmod +x "dist/${BIN_NAME}"
 tar -czf "dist/${BIN_NAME}.tar.gz" -C dist "${BIN_NAME}"
 
+BUNDLE_ROOT="target/${TARGET}/release/bundle/osx"
+if [[ ! -d "${BUNDLE_ROOT}" ]]; then
+  echo "Missing bundle output directory: ${BUNDLE_ROOT}" >&2
+  exit 1
+fi
+
+APP_BUNDLE_SRC="${BUNDLE_ROOT}/${APP_NAME}.app"
+if [[ ! -d "${APP_BUNDLE_SRC}" ]]; then
+  APP_BUNDLE_SRC="$(find "${BUNDLE_ROOT}" -maxdepth 1 -name "*.app" -print -quit || true)"
+fi
+
+if [[ -z "${APP_BUNDLE_SRC}" || ! -d "${APP_BUNDLE_SRC}" ]]; then
+  echo "Missing app bundle in ${BUNDLE_ROOT}" >&2
+  exit 1
+fi
+
 APP_DIR="dist/${APP_NAME}.app"
 rm -rf "${APP_DIR}"
-mkdir -p "${APP_DIR}/Contents/MacOS"
+cp -R "${APP_BUNDLE_SRC}" "${APP_DIR}"
+
+ICONSET_DIR="dist/AppIcon.iconset"
+rm -rf "${ICONSET_DIR}"
+mkdir -p "${ICONSET_DIR}"
+
+have_prebuilt_iconset=true
+for name in \
+  icon_16x16.png \
+  icon_16x16@2x.png \
+  icon_32x32.png \
+  icon_32x32@2x.png \
+  icon_128x128.png \
+  icon_128x128@2x.png \
+  icon_256x256.png \
+  icon_256x256@2x.png \
+  icon_512x512.png \
+  icon_512x512@2x.png; do
+  if [[ ! -f "assets/macos/${name}" ]]; then
+    have_prebuilt_iconset=false
+    break
+  fi
+done
+
+if [[ "${have_prebuilt_iconset}" == "true" ]]; then
+  cp assets/macos/icon_*.png "${ICONSET_DIR}/"
+else
+  ICON_SOURCE="assets/icon-running@2x.png"
+  if [[ ! -f "${ICON_SOURCE}" ]]; then
+    ICON_SOURCE="assets/icon-running.png"
+  fi
+
+  # Fallback for local/dev builds when dedicated iconset files are absent.
+  for size in 16 32 128 256 512; do
+    sips -z "${size}" "${size}" "${ICON_SOURCE}" --out "${ICONSET_DIR}/icon_${size}x${size}.png" >/dev/null
+    sips -z "$((size * 2))" "$((size * 2))" "${ICON_SOURCE}" --out "${ICONSET_DIR}/icon_${size}x${size}@2x.png" >/dev/null
+  done
+fi
+
 mkdir -p "${APP_DIR}/Contents/Resources"
-
-cp "${BIN_SRC}" "${APP_DIR}/Contents/MacOS/mouse-cursor-mover"
-chmod +x "${APP_DIR}/Contents/MacOS/mouse-cursor-mover"
-
-cat > "${APP_DIR}/Contents/Info.plist" <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>CFBundleDevelopmentRegion</key>
-  <string>en</string>
-  <key>CFBundleDisplayName</key>
-  <string>${APP_NAME}</string>
-  <key>CFBundleExecutable</key>
-  <string>mouse-cursor-mover</string>
-  <key>CFBundleIdentifier</key>
-  <string>com.roomjs.mouse-cursor-mover</string>
-  <key>CFBundleInfoDictionaryVersion</key>
-  <string>6.0</string>
-  <key>CFBundleName</key>
-  <string>${APP_NAME}</string>
-  <key>CFBundlePackageType</key>
-  <string>APPL</string>
-  <key>CFBundleShortVersionString</key>
-  <string>${VERSION}</string>
-  <key>CFBundleVersion</key>
-  <string>${VERSION}</string>
-  <key>LSUIElement</key>
-  <true/>
-  <key>NSHighResolutionCapable</key>
-  <true/>
-</dict>
-</plist>
-EOF
-
-APP_ARCHIVE="${PKG_NAME}-${TAG_SUFFIX}-${TARGET}.app.zip"
-rm -f "dist/${APP_ARCHIVE}"
-ditto -c -k --sequesterRsrc --keepParent "${APP_DIR}" "dist/${APP_ARCHIVE}"
-
-DMG_ROOT="dist/dmg-root-${TARGET}"
-rm -rf "${DMG_ROOT}"
-mkdir -p "${DMG_ROOT}"
-cp -R "${APP_DIR}" "${DMG_ROOT}/"
-ln -s /Applications "${DMG_ROOT}/Applications"
-
-DMG_NAME="${PKG_NAME}-${TAG_SUFFIX}-${TARGET}.dmg"
-rm -f "dist/${DMG_NAME}"
-hdiutil create -volname "${APP_NAME}" -srcfolder "${DMG_ROOT}" -ov -format UDZO "dist/${DMG_NAME}"
+iconutil -c icns "${ICONSET_DIR}" -o "${APP_DIR}/Contents/Resources/AppIcon.icns"
+plutil -replace CFBundleIconFile -string "AppIcon" "${APP_DIR}/Contents/Info.plist"
+plutil -replace CFBundleIconName -string "AppIcon" "${APP_DIR}/Contents/Info.plist"
