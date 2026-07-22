@@ -8,7 +8,17 @@ fi
 
 TAG="$1"
 TARGET="$2"
-VERSION="${TAG#v}"
+PKG_NAME="mouse-cursor-mover"
+
+# Release Please may produce tags like "v0.1.2" or "mouse-cursor-mover-v0.1.2".
+# Normalize to avoid duplicating the component prefix in artifact names.
+if [[ "${TAG}" == "${PKG_NAME}-"* ]]; then
+  TAG_SUFFIX="${TAG#${PKG_NAME}-}"
+else
+  TAG_SUFFIX="${TAG}"
+fi
+
+VERSION="${TAG_SUFFIX#v}"
 APP_NAME="Mouse Cursor Mover"
 
 BIN_SRC="target/${TARGET}/release/mouse-cursor-mover"
@@ -19,7 +29,7 @@ fi
 
 mkdir -p dist
 
-BIN_NAME="mouse-cursor-mover-${TAG}-${TARGET}"
+BIN_NAME="${PKG_NAME}-${TAG_SUFFIX}-${TARGET}"
 cp "${BIN_SRC}" "dist/${BIN_NAME}"
 chmod +x "dist/${BIN_NAME}"
 tar -czf "dist/${BIN_NAME}.tar.gz" -C dist "${BIN_NAME}"
@@ -63,7 +73,7 @@ cat > "${APP_DIR}/Contents/Info.plist" <<EOF
 </plist>
 EOF
 
-APP_ARCHIVE="mouse-cursor-mover-${TAG}-${TARGET}.app.zip"
+APP_ARCHIVE="${PKG_NAME}-${TAG_SUFFIX}-${TARGET}.app.zip"
 rm -f "dist/${APP_ARCHIVE}"
 ditto -c -k --sequesterRsrc --keepParent "${APP_DIR}" "dist/${APP_ARCHIVE}"
 
@@ -73,6 +83,6 @@ mkdir -p "${DMG_ROOT}"
 cp -R "${APP_DIR}" "${DMG_ROOT}/"
 ln -s /Applications "${DMG_ROOT}/Applications"
 
-DMG_NAME="mouse-cursor-mover-${TAG}-${TARGET}.dmg"
+DMG_NAME="${PKG_NAME}-${TAG_SUFFIX}-${TARGET}.dmg"
 rm -f "dist/${DMG_NAME}"
 hdiutil create -volname "${APP_NAME}" -srcfolder "${DMG_ROOT}" -ov -format UDZO "dist/${DMG_NAME}"

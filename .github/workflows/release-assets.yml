@@ -17,12 +17,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: macos-13
-            target: x86_64-apple-darwin
-          - os: macos-14
-            target: aarch64-apple-darwin
-    runs-on: ${{ matrix.os }}
+        target:
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
+    runs-on: macos-14
+    timeout-minutes: 10
 
     steps:
       - name: Checkout

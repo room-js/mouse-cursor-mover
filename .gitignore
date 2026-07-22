@@ -27,3 +27,5 @@ target
 
 # macOS app bundles (if generated)
 *.app
+dist
+
