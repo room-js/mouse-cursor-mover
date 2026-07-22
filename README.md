@@ -1,11 +1,11 @@
 # mouse-cursor-mover
 
-A lightweight **macOS (Apple Silicon)** menu-bar utility that keeps your Mac awake by smoothly moving the mouse cursor every 5 seconds.
+A lightweight **macOS (Apple Silicon + Intel)** menu-bar utility that keeps your Mac awake by smoothly moving the mouse cursor every 5 seconds.
 
 ## Features
 
 - Lives entirely in the macOS menu bar — no Dock icon
-- Two tray-icon states loaded from assets:
+- Two tray-icon states embedded at build time:
   - **Running icon**
   - **Stopped icon**
 - Menu with three items: **Start/Stop** toggle, **Support project**, and **Quit**
@@ -44,6 +44,32 @@ cp target/release/mouse-cursor-mover /usr/local/bin/
 mouse-cursor-mover &
 ```
 
+## Prebuilt Downloads
+
+GitHub Releases publish prebuilt downloads for both macOS architectures:
+
+- Apple Silicon: `aarch64-apple-darwin`
+- Intel: `x86_64-apple-darwin`
+
+Available artifact types:
+
+- `*.dmg` (recommended): drag-and-drop installer image with `.app` + `Applications` shortcut
+- `*.app.zip`: zipped `.app` bundle
+- `*.tar.gz`: standalone CLI binary archive
+
+Download from the repository's **Releases** page and choose the asset matching your machine architecture.
+
+### Drag-and-drop install (Applications)
+
+1. Download the `*.dmg` for your architecture.
+2. Open it and drag `Mouse Cursor Mover.app` into `Applications`.
+3. Launch from `Applications` (or Spotlight).
+
+### Running from `*.tar.gz`
+
+1. Extract the archive.
+2. Run the binary directly.
+
 ## Usage
 
 After launch, your configured tray icon appears in the macOS menu bar.
@@ -53,33 +79,6 @@ After launch, your configured tray icon appears in the macOS menu bar.
 | Click icon → **Start** / **Stop** (`Cmd+Option+S`) | Toggles between running and stopped |
 | Click icon → **Support project** | Opens `https://buymeacoffee.com/roomjs` |
 | Click icon → **Quit** | Exits the app cleanly |
-
-## Custom tray icons
-
-You can provide your own icons for the two states by placing PNG files here:
-
-- `assets/icon-running.png`
-- `assets/icon-stopped.png`
-
-Optional Retina variants (preferred when present):
-
-- `assets/icon-running@2x.png`
-- `assets/icon-stopped@2x.png`
-
-Behavior:
-
-- Icon files are required.
-- If `@2x` and non-`@2x` both exist, `@2x` is used.
-- If a required icon file is missing or cannot be decoded, the app fails fast at startup with an error.
-- Running and stopped state switch the tray icon between the two configured assets.
-
-Tips:
-
-- Use square PNGs.
-- For best Retina quality use 36x36 for `@2x` (logical menu-bar icon is ~18pt high).
-- Non-`@2x` can be 18x18.
-- Keep transparent background for menu-bar clarity.
-- Icons are rendered as macOS template images (system-tinted). Use a single-color glyph with transparency, and avoid baked black backgrounds.
 
 ## Notes
 
