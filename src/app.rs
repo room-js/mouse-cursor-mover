@@ -6,7 +6,10 @@ use global_hotkey::{
     GlobalHotKeyEvent, GlobalHotKeyManager, HotKeyState,
 };
 use tray_icon::{
-    menu::{Menu, MenuEvent, MenuItem},
+    menu::{
+        accelerator::{Accelerator, Code, Modifiers},
+        Menu, MenuEvent, MenuItem,
+    },
     TrayIcon, TrayIconBuilder,
 };
 use winit::{
@@ -24,8 +27,10 @@ struct App {
     tray: Option<TrayIcon>,
     toggle_item: Option<MenuItem>,
     support_item: Option<MenuItem>,
+    quit_item: Option<MenuItem>,
     hotkey_manager: Option<GlobalHotKeyManager>,
     hotkey: Option<HotKey>,
+    last_toggle_at: Option<Instant>,
     running: Arc<Mutex<bool>>,
 }
 
@@ -35,8 +40,10 @@ impl App {
             tray: None,
             toggle_item: None,
             support_item: None,
+            quit_item: None,
             hotkey_manager: None,
             hotkey: None,
+            last_toggle_at: None,
             running: Arc::new(Mutex::new(false)),
         }
     }
@@ -97,6 +104,21 @@ impl App {
             mover::spawn_mover(self.running.clone());
         }
     }
+
+    fn toggle_running_debounced(&mut self) {
+        let now = Instant::now();
+        let debounce_window = Duration::from_millis(250);
+
+        if self
+            .last_toggle_at
+            .is_some_and(|last| now.duration_since(last) < debounce_window)
+        {
+            return;
+        }
+
+        self.last_toggle_at = Some(now);
+        self.toggle_running();
+    }
 }
 
 impl ApplicationHandler for App {
@@ -107,11 +129,19 @@ impl ApplicationHandler for App {
 
         self.ensure_hotkey_registered();
 
-        let toggle = MenuItem::new("Start (Cmd+Option+S)", true, None);
+        let toggle = MenuItem::new(
+            "Start",
+            true,
+            Some(Accelerator::new(
+                Some(Modifiers::SUPER | Modifiers::ALT),
+                Code::KeyS,
+            )),
+        );
         let support = MenuItem::new("Support project", true, None);
+        let quit = MenuItem::new("Quit", true, None);
 
         let menu = Menu::new();
-        let _ = menu.append_items(&[&toggle, &support]);
+        let _ = menu.append_items(&[&toggle, &support, &quit]);
 
         self.tray = Some(
             TrayIconBuilder::new()
@@ -125,6 +155,7 @@ impl ApplicationHandler for App {
 
         self.toggle_item = Some(toggle);
         self.support_item = Some(support);
+        self.quit_item = Some(quit);
     }
 
     fn window_event(
@@ -143,7 +174,7 @@ impl ApplicationHandler for App {
                     .as_ref()
                     .is_some_and(|hotkey| hotkey.id() == event.id)
             {
-                self.toggle_running();
+                self.toggle_running_debounced();
             }
         }
 
@@ -156,11 +187,17 @@ impl ApplicationHandler for App {
                 .support_item
                 .as_ref()
                 .is_some_and(|i| i.id() == &event.id);
+            let is_quit = self
+                .quit_item
+                .as_ref()
+                .is_some_and(|i| i.id() == &event.id);
 
             if is_toggle {
-                self.toggle_running();
+                self.toggle_running_debounced();
             } else if is_support {
                 support::open_support_url();
+            } else if is_quit {
+                event_loop.exit();
             }
         }
 

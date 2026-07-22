@@ -8,7 +8,7 @@ A lightweight **macOS (Apple Silicon)** menu-bar utility that keeps your Mac awa
 - Two tray-icon states loaded from assets:
   - **Running icon**
   - **Stopped icon**
-- Menu with two items: **Start/Stop** toggle and **Support project**
+- Menu with three items: **Start/Stop** toggle, **Support project**, and **Quit**
 - Global toggle shortcut: **Cmd+Option+S**
 - Cursor moves to a random screen position every 5 seconds while active
 - Zero external runtime dependencies; uses CoreGraphics directly for mouse control
@@ -52,6 +52,7 @@ After launch a small circle icon appears in the macOS menu bar.
 |--------|--------|
 | Click icon → **Start** / **Stop** (`Cmd+Option+S`) | Toggles between running and stopped |
 | Click icon → **Support project** | Opens `https://buymeacoffee.com/roomjs` |
+| Click icon → **Quit** | Exits the app cleanly |
 
 ## Custom tray icons
 
