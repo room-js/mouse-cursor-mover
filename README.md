@@ -72,7 +72,7 @@ Download from the repository's **Releases** page and choose the asset matching y
 
 ## Usage
 
-After launch, your configured tray icon appears in the macOS menu bar.
+After launch, the tray icon appears in the macOS menu bar.
 
 | Action | Effect |
 |--------|--------|
