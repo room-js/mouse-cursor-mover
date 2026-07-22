@@ -1,6 +1,6 @@
 # mouse-cursor-mover
 
-A lightweight **macOS (Apple Silicon)** menu-bar utility that keeps your Mac awake by randomly moving the mouse cursor every 5 seconds.
+A lightweight **macOS (Apple Silicon)** menu-bar utility that keeps your Mac awake by smoothly moving the mouse cursor every 5 seconds.
 
 ## Features
 
@@ -9,7 +9,7 @@ A lightweight **macOS (Apple Silicon)** menu-bar utility that keeps your Mac awa
   - **Running icon**
   - **Stopped icon**
 - Menu with three items: **Start/Stop** toggle, **Support project**, and **Quit**
-- Global toggle shortcut: **Cmd+Option+S**
+- Global toggle shortcut: **Cmd+Option+S** (also shown natively in the menu)
 - Cursor moves to a random screen position every 5 seconds while active
 - Zero external runtime dependencies; uses CoreGraphics directly for mouse control
 
@@ -46,7 +46,7 @@ mouse-cursor-mover &
 
 ## Usage
 
-After launch a small circle icon appears in the macOS menu bar.
+After launch, your configured tray icon appears in the macOS menu bar.
 
 | Action | Effect |
 |--------|--------|
@@ -71,6 +71,7 @@ Behavior:
 - Icon files are required.
 - If `@2x` and non-`@2x` both exist, `@2x` is used.
 - If a required icon file is missing or cannot be decoded, the app fails fast at startup with an error.
+- Running and stopped state switch the tray icon between the two configured assets.
 
 Tips:
 

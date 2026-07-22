@@ -1,4 +1,5 @@
 use std::process::Command;
+use std::thread;
 
 const SUPPORT_URL: &str = "https://buymeacoffee.com/roomjs";
 
@@ -20,7 +21,15 @@ pub fn open_support_url() {
         "Opening URLs is not supported on this platform",
     ));
 
-    if let Err(err) = result {
-        eprintln!("Failed to open support URL: {err}");
+    match result {
+        Ok(mut child) => {
+            // Reap child in the background so repeated clicks do not accumulate zombies.
+            thread::spawn(move || {
+                let _ = child.wait();
+            });
+        }
+        Err(err) => {
+            eprintln!("Failed to open support URL: {err}");
+        }
     }
 }
