@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.6](https://github.com/room-js/mouse-cursor-mover/compare/mouse-cursor-mover-v0.1.5...mouse-cursor-mover-v0.1.6) (2026-07-22)
+
+
+### Bug Fixes
+
+* adjust release configuration ([c3c1029](https://github.com/room-js/mouse-cursor-mover/commit/c3c102945489f0a6f222d99528723698be1356d7))
+* adjust release configuration ([1349590](https://github.com/room-js/mouse-cursor-mover/commit/13495904a2016738a36421e73a2ec2525df05b4d))
+* assets release ([c34ef33](https://github.com/room-js/mouse-cursor-mover/commit/c34ef33f82f439dec4803d2e49d09c0546225d28))
+* assets release ([c9c370b](https://github.com/room-js/mouse-cursor-mover/commit/c9c370ba83797d1cbdc4461b161361fdc8ea658f))
+* automatic release of assets ([3bff991](https://github.com/room-js/mouse-cursor-mover/commit/3bff9916cecf9404daa0fcd298832d26836bdc71))
+* automatic release of assets ([2d08c34](https://github.com/room-js/mouse-cursor-mover/commit/2d08c34d59bbd648a3fd7a99adb9cc74bc97805a))
+* configure release auth ([864ba9c](https://github.com/room-js/mouse-cursor-mover/commit/864ba9c839a98a008a9bbca500af16d6393c75a4))
+* configure release auth ([e9c35cd](https://github.com/room-js/mouse-cursor-mover/commit/e9c35cd2d426db8195dac458941af26514f357fb))
+* release config ([6644032](https://github.com/room-js/mouse-cursor-mover/commit/6644032f954f8e7063264e745c04b9d2327c38a5))
+* release config ([d054d79](https://github.com/room-js/mouse-cursor-mover/commit/d054d79e93ac12a89408b9ebfc98fec83b36ece7))
+* trigger ([111c3ba](https://github.com/room-js/mouse-cursor-mover/commit/111c3baa43548b37c1c625f7c129ba92167cd343))
+* update token ([096db85](https://github.com/room-js/mouse-cursor-mover/commit/096db8579af3f6fbf5d342ce7369480a511a1963))
+
 ## [0.1.5](https://github.com/room-js/mouse-cursor-mover/compare/mouse-cursor-mover-v0.1.4...mouse-cursor-mover-v0.1.5) (2026-07-22)
 
 
