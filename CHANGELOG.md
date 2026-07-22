@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.5](https://github.com/room-js/mouse-cursor-mover/compare/mouse-cursor-mover-v0.1.4...mouse-cursor-mover-v0.1.5) (2026-07-22)
+
+
+### Bug Fixes
+
+* configure auto release for assets ([6fe0477](https://github.com/room-js/mouse-cursor-mover/commit/6fe0477489512b329a2ab4427541b59514d0b171))
+* configure auto release for assets ([f1dd037](https://github.com/room-js/mouse-cursor-mover/commit/f1dd0374044fb41c74201ea7ae7e96bdc27d3212))
+* feedback ([2b21012](https://github.com/room-js/mouse-cursor-mover/commit/2b21012f9dd8e2ba91eba8546baa87bf9125da55))
+
 ## [0.1.4](https://github.com/room-js/mouse-cursor-mover/compare/mouse-cursor-mover-v0.1.3...mouse-cursor-mover-v0.1.4) (2026-07-22)
 
 
