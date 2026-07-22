@@ -1,6 +1,9 @@
 name: Release Assets
 
 on:
+  release:
+    types:
+      - published
   workflow_dispatch:
     inputs:
       tag_name:
@@ -14,6 +17,8 @@ permissions:
 jobs:
   build-and-upload:
     name: Build and Upload (${{ matrix.target }})
+    env:
+      TAG_NAME: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.tag_name }}
     strategy:
       fail-fast: false
       matrix:
@@ -40,11 +45,9 @@ jobs:
       - name: Package binary and app bundle
         run: |
           chmod +x .github/scripts/package_macos_release.sh
-          .github/scripts/package_macos_release.sh "${{ inputs.tag_name }}" "${{ matrix.target }}"
+          .github/scripts/package_macos_release.sh "${TAG_NAME}" "${{ matrix.target }}"
 
       - name: Create app archive and dmg
-        env:
-          TAG_NAME: ${{ inputs.tag_name }}
         run: |
           chmod +x .github/scripts/release_tag_env.sh
           eval "$(.github/scripts/release_tag_env.sh "${TAG_NAME}" "${{ matrix.target }}")"
@@ -63,7 +66,7 @@ jobs:
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ inputs.tag_name }}
+          tag_name: ${{ env.TAG_NAME }}
           files: |
             dist/*.tar.gz
             dist/*.app.zip
