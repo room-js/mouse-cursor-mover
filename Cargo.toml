@@ -15,3 +15,9 @@ tray-icon = "0.24"
 winit = "0.30"
 image = { version = "0.25", default-features = false, features = ["png"] }
 global-hotkey = "0.6"
+
+[package.metadata.bundle]
+name = "Mouse Cursor Mover"
+identifier = "com.roomjs.mouse-cursor-mover"
+icon = ["assets/macos/icon_512x512.png", "assets/macos/icon_512x512@2x.png"]
+osx_info_plist_exts = ["assets/macos/Info.plist.append.xml"]

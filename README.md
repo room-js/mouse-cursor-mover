@@ -65,6 +65,14 @@ Download from the repository's **Releases** page and choose the asset matching y
 2. Open it and drag `Mouse Cursor Mover.app` into `Applications`.
 3. Launch from `Applications` (or Spotlight).
 
+If macOS shows `"Mouse Cursor Mover" is damaged and can't be opened`, the app was blocked by Gatekeeper quarantine checks. As a temporary workaround for that specific build, remove quarantine metadata and launch again:
+
+```sh
+xattr -dr com.apple.quarantine "/Applications/Mouse Cursor Mover.app"
+```
+
+Only do this when you trust the release source.
+
 ### Running from `*.tar.gz`
 
 1. Extract the archive.
@@ -84,3 +92,12 @@ After launch, the tray icon appears in the macOS menu bar.
 
 - The app requests no special permissions unless the system prompts for *Accessibility* access (required by CoreGraphics to synthesise mouse events). Grant it in **System Settings → Privacy & Security → Accessibility**.
 - The cursor is moved using `CGEventPost`, which is the same low-level API used by macOS itself, so it reliably prevents display sleep and screen-saver activation.
+
+## Maintainer Release Notes
+
+Release workflows publish unsigned macOS artifacts and do not require Apple Developer credentials.
+
+Implications:
+
+- Some systems may show a Gatekeeper warning when opening downloaded apps.
+- Users can still run trusted builds by using the quarantine-removal command in the install section above.
