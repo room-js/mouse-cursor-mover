@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3](https://github.com/room-js/mouse-cursor-mover/compare/mouse-cursor-mover-v0.1.2...mouse-cursor-mover-v0.1.3) (2026-07-22)
+
+
+### Bug Fixes
+
+* adjusted released assets name ([e28a8c3](https://github.com/room-js/mouse-cursor-mover/commit/e28a8c3a94ee23c14f268e78e9b55d914d4b537f))
+* adjusted released assets name ([21e7fa3](https://github.com/room-js/mouse-cursor-mover/commit/21e7fa38a9ef8dc890e3a80d5743fd4fe95311d1))
+
 ## [0.1.2](https://github.com/room-js/mouse-cursor-mover/compare/mouse-cursor-mover-v0.1.1...mouse-cursor-mover-v0.1.2) (2026-07-22)
 
 
