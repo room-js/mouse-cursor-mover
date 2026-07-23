@@ -2,6 +2,8 @@
 
 A lightweight **macOS (Apple Silicon + Intel)** menu-bar utility that keeps your Mac awake by smoothly moving the mouse cursor every 5 seconds.
 
+![Preview](preview.jpg)
+
 ## Features
 
 - Lives entirely in the macOS menu bar — no Dock icon
@@ -76,6 +78,8 @@ For trusted releases only, run this command in terminal and then launch the app 
 ```sh
 xattr -dr com.apple.quarantine "/Applications/Mouse Cursor Mover.app"
 ```
+
+[![](https://markdown-videos-api.jorgenkh.no/youtube/48w_OGM1eis)](https://youtu.be/48w_OGM1eis)
 
 ## Usage
 
