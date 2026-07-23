@@ -80,9 +80,9 @@ impl App {
 
         if let Some(item) = &self.toggle_item {
             if running {
-                item.set_text("Stop (Cmd+Option+S)");
+                item.set_text("Stop");
             } else {
-                item.set_text("Start (Cmd+Option+S)");
+                item.set_text("Start");
             }
         }
 
