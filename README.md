@@ -59,24 +59,23 @@ Available artifact types:
 
 Download from the repository's **Releases** page and choose the asset matching your machine architecture.
 
-### Drag-and-drop install (Applications)
+### Installation
+
+The easiest way is to install the app from the bundle:
 
 1. Download the `*.dmg` for your architecture.
 2. Open it and drag `Mouse Cursor Mover.app` into `Applications`.
 3. Launch from `Applications` (or Spotlight).
 
-If macOS shows `"Mouse Cursor Mover" is damaged and can't be opened`, the app was blocked by Gatekeeper quarantine checks. As a temporary workaround for that specific build, remove quarantine metadata and launch again:
+**IMPORTANT:**
+
+If macOS shows `"Mouse Cursor Mover" is damaged and can't be opened`, the downloaded app was blocked by Gatekeeper quarantine checks.
+
+For trusted releases only, run this command in terminal and then launch the app again:
 
 ```sh
 xattr -dr com.apple.quarantine "/Applications/Mouse Cursor Mover.app"
 ```
-
-Only do this when you trust the release source.
-
-### Running from `*.tar.gz`
-
-1. Extract the archive.
-2. Run the binary directly.
 
 ## Usage
 

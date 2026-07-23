@@ -3,7 +3,6 @@ name: Release Assets
 on:
   release:
     types:
-      - published
       - released
   workflow_dispatch:
     inputs:
