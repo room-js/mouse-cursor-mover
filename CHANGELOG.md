@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/room-js/mouse-cursor-mover/compare/v0.2.0...v0.2.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* rename menu item ([5f3d056](https://github.com/room-js/mouse-cursor-mover/commit/5f3d0564b479d3cfc4ba606171c9d04dbb98d998))
+* rename menu item ([24f594a](https://github.com/room-js/mouse-cursor-mover/commit/24f594a085a7779acc272d332792f2ebfddaaa13))
+
 ## [0.2.0](https://github.com/room-js/mouse-cursor-mover/compare/v0.1.6...v0.2.0) (2026-07-23)
 
 
